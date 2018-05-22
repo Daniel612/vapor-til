@@ -16,3 +16,5 @@ extension Acronym: MySQLModel {}
 extension Acronym: Migration {}
 // 让模型能够转换成其他格式
 extension Acronym: Content {}
+// 对于参数的强大的类型安全
+extension Acronym: Parameter {}
