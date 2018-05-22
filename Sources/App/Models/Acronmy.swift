@@ -1,5 +1,5 @@
 import Vapor
-import FluentSQLite
+import FluentMySQL
 
 final class Acronym: Codable {
     var id: Int?
@@ -11,7 +11,7 @@ final class Acronym: Codable {
     }
 }
 // 告诉 Fluent 这个模型所使用的数据库
-extension Acronym: SQLiteModel {}
+extension Acronym: MySQLModel {}
 // 让 Fluent 来创建数据库模式
 extension Acronym: Migration {}
 // 让模型能够转换成其他格式
