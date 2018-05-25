@@ -31,6 +31,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 //    databases.add(database: database, as: .mysql)
 //    services.register(databases)
     
+    // I don't want use vapor cloud database, beceause it needs money.
     var databases = DatabasesConfig()
     let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
     let username = Environment.get("DATABASE_USER") ?? "vapor"
