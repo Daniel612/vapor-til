@@ -106,4 +106,7 @@ public func routes(_ router: Router) throws {
     let acronymsController = AcronymsController()
     // 确保控制器的路由注册了
     try router.register(collection: acronymsController)
+    
+    let usersController = UsersController()
+    try router.register(collection: usersController)
 }
