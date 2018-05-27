@@ -18,3 +18,10 @@ extension User: MySQLUUIDModel {}
 extension User: Content {}
 extension User: Migration {}
 extension User: Parameter {}
+
+extension User {
+    var acronyms: Children<User, Acronym> {
+        // 还是用 acronym 引用 user 关键路径来找出所有的子对象
+        return children(\.userID)
+    }
+}

@@ -48,8 +48,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     /// Configure migrations
     var migrations = MigrationConfig()
-    migrations.add(model: Acronym.self, database: .mysql)
+    // 保证创建表的顺序正确
     migrations.add(model: User.self, database: .mysql)
+    migrations.add(model: Acronym.self, database: .mysql)
+    migrations.add(model: Category.self, database: .mysql)
+    migrations.add(model: AcronymCategoryPivot.self, database: .mysql)
     services.register(migrations)
 
+    /// 恢复所有迁移
+    var commandConfig = CommandConfig.default()
+    commandConfig.use(RevertCommand.self, as: "revert")
+    services.register(commandConfig)
 }
