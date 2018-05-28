@@ -31,14 +31,27 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 //    databases.add(database: database, as: .mysql)
 //    services.register(databases)
     
-    // I don't want use vapor cloud database, beceause it needs money.
+
     var databases = DatabasesConfig()
     let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
     let username = Environment.get("DATABASE_USER") ?? "vapor"
-    let databaseName = Environment.get("DATABASE_DB") ?? "vapor"
+    let databaseName: String
+    let databasePort: Int
+    if (env == .testing) {
+        databaseName = "vapor-test"
+        if let testPort = Environment.get("DATABASE_PORT") {
+            databasePort = Int(testPort) ?? 5433
+        } else {
+            databasePort = 5433
+        }
+    } else {
+        databaseName = Environment.get("DATABASE_DB") ?? "vapor"
+        databasePort = 3306
+    }
     let password = Environment.get("DATABASE_PASSWORD") ?? "password"
     let databaseConfig = MySQLDatabaseConfig(
         hostname: hostname,
+        port: databasePort, // 测试使用不同的端口
         username: username,
         password: password,
         database: databaseName)
