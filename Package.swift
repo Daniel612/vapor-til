@@ -13,10 +13,12 @@ let package = Package(
         // FluentMySQL
         .package(url: "https://github.com/vapor/fluent-mysql.git",
                  from: "3.0.0-rc"),
+        // 模版语言
+        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0-rc")
     ],
     targets: [
 //        .target(name: "App", dependencies: ["FluentSQLite", "Vapor"]),
-        .target(name: "App", dependencies: ["FluentMySQL", "Vapor"]),
+        .target(name: "App", dependencies: ["FluentMySQL", "Vapor", "Leaf"]),
         .target(name: "Run", dependencies: ["App"]),
         // 这定义了一个测试目标类型，伴随一个依赖包
         .testTarget(name: "AppTests", dependencies: ["App"])

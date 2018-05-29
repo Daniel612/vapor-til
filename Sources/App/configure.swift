@@ -1,10 +1,12 @@
 import FluentMySQL
 import Vapor
+import Leaf
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     /// Register providers first
     try services.register(FluentMySQLProvider())   // 允许应用通过 Fluent 与 MySQL 交互
+    try services.register(LeafProvider())
 
     /// Register routes to the router
     let router = EngineRouter.default()
@@ -72,4 +74,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var commandConfig = CommandConfig.default()
     commandConfig.use(RevertCommand.self, as: "revert")
     services.register(commandConfig)
+    
+    // 告诉 Vapor 使用 LeafRenderer，当请求一个 ViewRenderer 类型时
+    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
 }
