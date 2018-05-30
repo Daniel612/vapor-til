@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>#(title) | Acronyms</title>
+</head>
+<body>
+    #set("content") {
+        <h1>#(title)</h1>
+        #// 浏览器用post请求发送数据到相同的url
+        <form method="post">
+            <div class="form-group">
+                <label for="short">Acronym</label>
+                #// name 表示请求数据的键
+                 <input type="text" name="short" class="form-control" id="short" #if(editing){value="#(acronym.short)"}/>
+            </div>
+            <div class="form-group">
+                <label for="long">Meaning</label>
+                 <input type="text" name="long" class="form-control" id="long" #if(editing){value="#(acronym.long)"}/>
+            </div>
+            <div class="form-group">
+                <label for="userID">User</label>
+                #// 展示不同的用户
+                <select name="userID" class="form-control" id="userID">
+                #for(user in users) {
+                    <option value="#(user.id)"
+                        #if(editing){#if(acronym.userID == user.id){selected}}>
+                        #(user.name)
+                    </option>
+                }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="categories">Categories</label>
+                <select name="categories[]" class="form-control" id="categories" placeholder="Categories" multiple="multiple">
+                    #if(editing) {
+                        #for(category in categories) {
+                            <option value="#(category.name)" selected="selected">
+                                #(category.name)
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                #if(editing){Update} else{Submit}
+            </button>
+        </form>
+    }
+</body>
+</html>
+#embed("base")

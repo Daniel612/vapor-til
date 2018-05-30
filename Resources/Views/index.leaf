@@ -5,29 +5,34 @@
     <title>#(title) | Acronyms</title>
 </head>
 <body>
-    <h1>Acronyms</h1>
-    #// 检查变量值是否设置
-    #if(acronyms) {
-        <table>
-            #// 标题行
-            <thead>
-                <tr>
-                    <th>Short</th>
-                    <th>Long</th>
-                </tr>
-            </thead>
-        <tbody>
-            #// 遍历所有的缩写
-            #for(acronym in acronyms) {
-                <tr>
-                    <td><a href="/acronyms/#(acronym.id)">#(acronym.short)</a></td>
-                    <td>#(acronym.long)</td>
-                </tr>
-            }
-        </tbody>
-        </table>
-    } else {
-        <h2>There aren't any acronyms yet!</h2>
+    #set("content") {
+        <img src="/images/logo.png" class="mx-auto d-block" alt="TIL Logo" />
+        <h1>Acronyms</h1>
+        #// 检查变量值是否设置
+        #if(acronyms) {
+            <table class="table table-bordered table-hover">
+                #// 标题行
+                <thead class="thead-light">
+                    <tr>
+                        <th>Short</th>
+                        <th>Long</th>
+                    </tr>
+                </thead>
+            <tbody>
+                #// 遍历所有的缩写
+                #for(acronym in acronyms) {
+                    <tr>
+                        <td><a href="/acronyms/#(acronym.id)">#(acronym.short)</a></td>
+                        <td>#(acronym.long)</td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+        } else {
+            <h2>There aren't any acronyms yet!</h2>
+        }
     }
 </body>
 </html>
+#// 绑定 base 模版到该页面并渲染它
+#embed("base")
